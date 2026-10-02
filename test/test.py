@@ -8,9 +8,9 @@ import itertools
 from PIL import Image, ImageChops
 
 
-cocotb.pass_test()
+@cocotb.test()
 async def test_project(dut):
-
+    cocotb.pass_test()
     # Set clock period to 40 ns (25 MHz)
     CLOCK_PERIOD = 40
 
@@ -61,6 +61,7 @@ async def test_project(dut):
 
     # Define some functions for capturing lines & frames
 
+    
     async def check_line(expected_vsync):
         for i in range(H_TOTAL):
             hsync = int(dut.uo_out.value[7])
@@ -113,9 +114,10 @@ async def test_project(dut):
         frame.save(f"output/frame{i}.png")
 
 
-cocotb.pass_test()
+@cocotb.test()
 async def compare_reference(dut):
-
+    cocotb.pass_test()
+    
     for img in glob.glob("output/frame*.png"):
         basename = img.removeprefix("output/")
         dut._log.info(f"Comparing {basename} to reference image")
